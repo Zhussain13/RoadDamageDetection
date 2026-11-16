@@ -1,176 +1,159 @@
-🛣️ RoadCare+
+# RoadCare+
 
-### A Lightweight and Efficient Road Surface Damage Detection Framework for Indian Roads
+**A Lightweight YOLOv7 Framework Enhanced with GhostNet, BasicRFB and CARAFE for Road Surface Damage Detection in India**
 
-**Using Enhanced YOLOv7 with GhostNet, BasicRFB, and CARAFE**
+[![Scopus](https://img.shields.io/badge/Scopus-indexed-orange)](https://www.scopus.com/record/display.uri?eid=2-s2.0-105047263229&origin=resultslist)
+![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
+![PyTorch](https://img.shields.io/badge/PyTorch-YOLOv7-red)
+![Streamlit](https://img.shields.io/badge/UI-Streamlit-ff4b4b)
 
----
-
-## 📌 Overview
-
-RoadCare+ is a lightweight deep learning framework designed for **real-time road surface damage detection** under Indian road conditions. The system enhances the **YOLOv7** object detection architecture with **GhostNet**, **BasicRFB**, and **CARAFE** modules to achieve a balance between **high accuracy**, **low computational cost**, and **fast inference speed**.
-
-The framework is trained on the **RDD2020 (India subset)** dataset and supports **automated reporting** and **easy deployment**, making it suitable for **smart city infrastructure monitoring** and **municipal road maintenance planning**.
-
----
-
-## 🎯 Objectives
-
-* Design a **lightweight YOLOv7-based model (GRC-YOLOv7)**
-* Improve detection of **potholes and road cracks** with enhanced feature extraction
-* Achieve **real-time inference** on CPU/GPU
-* Provide **automated Excel & PDF reporting**
-* Enable **easy usage** through a deployable inference pipeline
+RoadCare+ detects potholes and cracks in road videos in real time. It improves YOLOv7 with three
+modules (the variant is called **GRC-YOLOv7**) so that it stays accurate while being small and
+fast enough for low-cost hardware, for use by municipalities and smart-city road maintenance.
 
 ---
 
-## 🧠 Key Features
+## Publication
 
-* ✅ Lightweight architecture using **GhostNet**
-* ✅ Improved receptive field via **BasicRFB**
-* ✅ High-quality upsampling using **CARAFE**
-* ✅ Supports **4 road damage classes**
-* ✅ Pre-trained models included
-* ✅ Test video inference supported
-* ✅ Modular and extendable design
+The work is **published and indexed in Scopus**.
 
----
+| | |
+|---|---|
+| **Title** | RoadCare+: A Lightweight YOLOv7 Framework Enhanced with GhostNet, BasicRFB and CARAFE for Road Surface Damage Detection in India |
+| **Venue** | ACT 2026 |
+| **Scopus EID** | `2-s2.0-105047263229` |
+| **Scopus record** | https://www.scopus.com/record/display.uri?eid=2-s2.0-105047263229&origin=resultslist |
 
-## 🧩 Road Damage Classes
-
-| Class ID | Damage Type        |
-| -------- | ------------------ |
-| D00      | Longitudinal Crack |
-| D10      | Transverse Crack   |
-| D20      | Alligator Crack    |
-| D40      | Pothole            |
+If you use this work, please cite it (see [`CITATION.cff`](CITATION.cff); GitHub's **Cite this repository**
+button gives APA and BibTeX). Full author list, volume and pages are on the Scopus record.
 
 ---
 
-## 📂 Project Structure
+## Highlights
+
+| Module | What it adds |
+|---|---|
+| **GhostNet** | Cheap "ghost" feature maps → fewer parameters and faster inference |
+| **BasicRFB** (Receptive Field Block) | Wider context → better at thin cracks and small potholes |
+| **CARAFE** (content-aware upsampling) | Sharper multi-scale features in the neck |
+
+- Trained on the **RDD2020 India subset** (Sekilab) for Indian road conditions.
+- Side-by-side **Streamlit app**: baseline YOLOv7 vs the customised model on the same video.
+- Pretrained weights and a test video included, so the demo runs without training.
+
+## Results (RDD2020 India test split)
+
+| Metric | Value |
+|---|---|
+| mAP@0.5 | **70.6%** |
+| Precision | 0.71 |
+| Recall | 0.69 |
+| F1-score | 0.70 |
+| Speed | ~35 FPS (CPU), ~62 FPS (GPU) |
+| Model size | ~12.5 MB |
+
+## Damage classes (RDD2020)
+
+| Code | Damage type |
+|---|---|
+| D00 | Longitudinal crack |
+| D10 | Transverse crack |
+| D20 | Alligator crack |
+| D40 | Pothole |
+
+> The demo weights in `Trained_Models/` are labelled by `classes.names`, which currently lists one
+> class (`pothole`).
+
+---
+
+## Repository contents
 
 ```
-RoadCare+
-│── Main.py
-│── README.md
-│
-├── Docs
-│   ├── Final Copy.pdf
-│   ├── Mini Project.pptx
-│   ├── RDD2022 A multi-national image dataset.pdf
-│   ├── Road Damage Detection Algorithm.pdf
-│   ├── Road damage detection using deep neural networks.pdf
-│   └── GAN-based road damage detection.pdf
-│
-├── Test_data
-│   └── test_video_1.mp4
-│
-└── Trained_Models
-    ├── classes.names
-    ├── pothole_detection_basicyolov7.pt
-    └── Pothole_detection_yolov7customised.pt
+RoadDamageDetection/
+├── Main.py                     Streamlit app: baseline YOLOv7 vs customised YOLOv7, side by side
+├── requirements.txt            Python packages
+├── CITATION.cff                How to cite the published paper
+├── Trained_Models/
+│   ├── pothole_detection_basicyolov7.pt      baseline YOLOv7 weights
+│   ├── Pothole_detection_yolov7customised.pt customised (RoadCare+) weights
+│   └── classes.names
+├── Test_data/
+│   └── test_video_1.mp4        sample road video
+└── Docs/
+    ├── Final Copy.pdf          project report (M.Tech mini project)
+    ├── Mini Project.pptx       presentation
+    └── *.pdf                   reference papers (RDD2022 dataset, related methods)
 ```
 
 ---
 
-## ⚙️ Methodology
+## How to run the demo
 
-1. **Dataset Preparation**
-
-   * RDD2020 India subset
-   * YOLO format annotations
-   * Image resizing & augmentation
-
-2. **Model Architecture (GRC-YOLOv7)**
-
-   * GhostNet → parameter reduction
-   * BasicRFB → contextual feature learning
-   * CARAFE → content-aware upsampling
-
-3. **Training & Optimization**
-
-   * PyTorch framework
-   * SGD optimizer with cosine LR scheduling
-   * Early stopping & mixed precision training
-
-4. **Inference & Evaluation**
-
-   * Bounding box prediction
-   * Confidence thresholding
-   * NMS post-processing
-
----
-
-## 📊 Performance Metrics
-
-| Metric     | Value     |
-| ---------- | --------- |
-| mAP@0.5    | **70.6%** |
-| Precision  | 71%       |
-| Recall     | 69%       |
-| F1-Score   | 0.70      |
-| FPS (CPU)  | ~35       |
-| FPS (GPU)  | ~62       |
-| Model Size | ~12.5 MB  |
-
----
-
-## 🚀 How to Run
-
-### 1️⃣ Clone the Repository
+**1. Get the code and install packages** (Python 3.8+):
 
 ```bash
-git clone git@github.com:Zhussain13/RoadDamageDetection.git
+git clone https://github.com/Zhussain13/RoadDamageDetection.git
 cd RoadDamageDetection
+pip install -r requirements.txt
 ```
 
-### 2️⃣ Install Dependencies
+**2. Get the YOLOv7 code** used for the baseline model (it provides `models.experimental` and
+`utils.general`). Clone it next to `Main.py` in a folder named `yolobasic_v7`:
 
 ```bash
-pip install torch torchvision opencv-python numpy pandas matplotlib
+git clone https://github.com/WongKinYiu/yolov7.git yolobasic_v7
 ```
 
-### 3️⃣ Run Inference
+**3. Set the paths at the top of `Main.py`.** They currently point to the author's Windows folders
+(`D:\TA\M.Tech\...`). Change these four lines to your copy, for example:
+
+```python
+YOLObasic_v7_PATH = "yolobasic_v7"
+YOLOv7_Customised_MODEL_PATH = "Trained_Models/Pothole_detection_yolov7customised.pt"
+YOLObasic_v7_MODEL_PATH = "Trained_Models/pothole_detection_basicyolov7.pt"
+NAMES_PATH = "Trained_Models/classes.names"
+```
+
+**4. Start the app** (it is a Streamlit app, so use `streamlit run`, not `python`):
 
 ```bash
-python Main.py
+streamlit run Main.py
 ```
 
-> Ensure the required `.pt` model file is selected inside `Main.py`.
+Open the link it prints (usually http://localhost:8501), upload `Test_data/test_video_1.mp4` or any
+road video, and watch both models' detections frame by frame.
 
 ---
 
-## 📁 Pretrained Models
+## Method in brief
 
-Located in `Trained_Models/`
+1. **Data:** RDD2020 India images, YOLO-format labels, resizing and augmentation.
+2. **Model:** YOLOv7 backbone and neck modified with GhostNet, BasicRFB and CARAFE (GRC-YOLOv7).
+3. **Training:** PyTorch, SGD with cosine learning-rate schedule, early stopping, mixed precision.
+4. **Inference:** letterbox resize → model → confidence threshold 0.25 → NMS (IoU 0.45) → boxes on video.
 
-* `pothole_detection_basicyolov7.pt`
-* `Pothole_detection_yolov7customised.pt`
-* `classes.names`
+Full details, ablations and comparisons are in [`Docs/Final Copy.pdf`](Docs/Final%20Copy.pdf).
 
----
+## Applications
 
-## 🎥 Test Data
-
-Sample test video provided in:
-
-```
-Test_data/test_video_1.mp4
-```
+Municipal road-maintenance planning · smart-city monitoring · dash-cam and vehicle-mounted
+inspection · accident prevention · input for autonomous-driving perception.
 
 ---
 
-## 🏙️ Applications
+## Author
 
-* Smart city road monitoring
-* Municipal road maintenance planning
-* Accident prevention systems
-* Autonomous driving perception
-* Infrastructure inspection automation
+**Shaik Mohammed Zaheed Hussain**, Assistant Professor, Dept. of CSE, CMR Institute of Technology,
+Bengaluru. [LinkedIn](https://www.linkedin.com/in/zhussain13)
 
----
+Developed as an M.Tech (Computer Science) mini project at Kishkinda University, Ballari (2024–25),
+under the guidance of **Dr. Rajashree V. Biradar**, Chairperson, Dept. of CSE.
 
-📜 License
+## Acknowledgements
 
-This project is intended for **academic and research purposes**.
+RDD2020 dataset by Sekilab; YOLOv7 by Wang, Bochkovskiy and Liao; GhostNet, RFB and CARAFE by their
+respective authors.
 
+## License
+
+Academic and research use. Please contact the author for any other use.

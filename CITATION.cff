@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use RoadCare+, please cite the published paper (full author list on the Scopus record)."
+title: "RoadCare+: Road surface damage detection for Indian roads (code and trained models)"
+authors:
+  - family-names: Hussain
+    given-names: Shaik Mohammed Zaheed
+    affiliation: "CMR Institute of Technology, Bengaluru, India"
+repository-code: "https://github.com/Zhussain13/RoadDamageDetection"
+keywords:
+  - road damage detection
+  - pothole detection
+  - YOLOv7
+  - GhostNet
+  - CARAFE
+  - RDD2020
+preferred-citation:
+  type: conference-paper
+  title: "RoadCare+: A Lightweight YOLOv7 Framework Enhanced with GhostNet, BasicRFB and CARAFE for Road Surface Damage Detection in India"
+  authors:
+    - family-names: Hussain
+      given-names: Shaik Mohammed Zaheed
+  conference:
+    name: "ACT 2026"
+  year: 2026
+  url: "https://www.scopus.com/record/display.uri?eid=2-s2.0-105047263229&origin=resultslist"
+  notes: "Scopus EID 2-s2.0-105047263229"

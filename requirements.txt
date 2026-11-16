@@ -1,0 +1,14 @@
+# RoadCare+ demo app (Main.py)
+streamlit
+torch
+torchvision
+opencv-python
+numpy
+ultralytics      # loads the customised model (YOLO class)
+# Needed by the YOLOv7 code in yolobasic_v7/ (baseline model)
+pyyaml
+scipy
+pandas
+matplotlib
+seaborn
+tqdm
